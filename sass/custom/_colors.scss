@@ -2,6 +2,8 @@
 // To give it a try, uncomment some of the lines below rebuild your blog, and see how it works.
 // If you need a handy color picker try http://hslpicker.com
 
+$header-bg: #2f2323;
+//#8aaaf4
 //$header-bg: #263347;
 //$subtitle-color: lighten($header-bg, 58);
 //$nav-bg: desaturate(lighten(#8fc17a, 18), 5);
@@ -38,6 +40,7 @@
 
 
 /* Non highlighted code colors */
+$pre-bg: #fafafa
 //$pre-bg: $base03;
 //$pre-border: darken($base02, 5);
 //$pre-color: $base1;

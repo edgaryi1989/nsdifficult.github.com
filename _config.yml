@@ -4,8 +4,8 @@
 
 url: http://www.nsdifficult.com
 title: NSDIFFICULT 
-subtitle: 没有人能阻挡你对自由的向往。 
-author: 易荣义
+subtitle: 图样图森破啊 
+author: nsdifficult@gmail.com
 simple_search: http://google.com/search
 description:
 
@@ -54,8 +54,8 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.
 
 # Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below
 # and add an array with the asides you want to use.
-# blog_index_asides:
-# post_asides:
+# blog_index_asides:[custom/asides/aboutMe.html]
+# post_asides:[custom/asides/aboutMe.html]
 # page_asides:
 
 # ----------------------- #
@@ -67,35 +67,35 @@ duoshuo_comments: true
 duoshuo_short_name: nsdifficult
 
 # Github repositories
-github_user:
-github_repo_count: 0
-github_show_profile_link: true
-github_skip_forks: true
+# github_user:
+# github_repo_count: 0
+# github_show_profile_link: true
+# github_skip_forks: true
 
 
 # Google +1
-google_plus_one: false
-google_plus_one_size: medium
+# google_plus_one: false
+# google_plus_one_size: medium
 
 # Google Plus Profile
 # Hidden: No visible button, just add author information to search results
-googleplus_user:
-googleplus_hidden: false
+# googleplus_user:
+# googleplus_hidden: false
 
 # Pinboard
-pinboard_user:
-pinboard_count: 3
+# pinboard_user:
+# pinboard_count: 3
 
 # Delicious
-delicious_user:
-delicious_count: 3
+# delicious_user:
+# delicious_count: 3
 
 # Disqus Comments
-disqus_short_name:
-disqus_show_comment_count: false
+#disqus_short_name:
+#disqus_show_comment_count: false
 
 # Google Analytics
 google_analytics_tracking_id:
 
 # Facebook Like
-facebook_like: false
+#facebook_like: false

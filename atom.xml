@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[NSDIFFICULT]]></title>
-  <link href="http://nsdifficult.github.io/atom.xml" rel="self"/>
-  <link href="http://nsdifficult.github.io/"/>
-  <updated>2013-08-17T12:05:02+08:00</updated>
-  <id>http://nsdifficult.github.io/</id>
+  <link href="http://www.nsdifficult.com/atom.xml" rel="self"/>
+  <link href="http://www.nsdifficult.com/"/>
+  <updated>2013-08-17T13:44:17+08:00</updated>
+  <id>http://www.nsdifficult.com/</id>
   <author>
     <name><![CDATA[易荣义]]></name>
     
@@ -15,18 +15,18 @@
   
   <entry>
     <title type="html"><![CDATA[helloworld page]]></title>
-    <link href="http://nsdifficult.github.io/blog/2013/08/17/helloworld-page/"/>
+    <link href="http://www.nsdifficult.com/blog/2013/08/17/helloworld-page/"/>
     <updated>2013-08-17T12:04:00+08:00</updated>
-    <id>http://nsdifficult.github.io/blog/2013/08/17/helloworld-page</id>
+    <id>http://www.nsdifficult.com/blog/2013/08/17/helloworld-page</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[2013-08-17-post-helloworld.markdown]]></title>
-    <link href="http://nsdifficult.github.io/blog/2013/08/17/2013-08-17-post-helloworld-dot-markdown/"/>
+    <link href="http://www.nsdifficult.com/blog/2013/08/17/2013-08-17-post-helloworld-dot-markdown/"/>
     <updated>2013-08-17T11:59:00+08:00</updated>
-    <id>http://nsdifficult.github.io/blog/2013/08/17/2013-08-17-post-helloworld-dot-markdown</id>
+    <id>http://www.nsdifficult.com/blog/2013/08/17/2013-08-17-post-helloworld-dot-markdown</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>

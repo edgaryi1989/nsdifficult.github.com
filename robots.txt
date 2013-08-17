@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://nsdifficult.github.io/sitemap.xml 
+Sitemap: http://www.nsdifficult.com/sitemap.xml 

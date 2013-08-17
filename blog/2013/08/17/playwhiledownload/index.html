@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>NSDIFFICULT</title>
+  <title>音视频边播放边下载技术调研及问题 - NSDIFFICULT</title>
   <meta name="author" content="nsdifficult@gmail.com">
 
   
-  <meta name="description" content="类扩展 始终不明白类扩展是什么东西,今天查了下文档 A class extension bears some similarity to a category, but it can only be added to a class for which you have the source &hellip;">
+  <meta name="description" content="介绍 需求 实现在音视频播放的时候即进行缓冲，即边播放边下载。 技术介绍 思路来自http://www.cnblogs.com/zhouguixin/p/3139522.html。要点是在先开一个下载的线程下载视频文件，然后在本地建一个server，然后拼接一个url给播放器。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.nsdifficult.com/blog">
+  <link rel="canonical" href="http://www.nsdifficult.com/blog/2013/08/17/playwhiledownload">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="NSDIFFICULT" type="application/atom+xml">
@@ -63,227 +63,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      
-
-
-    <article class="post">
+      <div>
+<article class="hentry" role="article">
+  
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/08/17/objectivecleibie/">Objective-C的类别，类扩展与私有方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-17T21:09:00+08:00" pubdate data-updated="true">Aug 17<span>th</span>, 2013</time>
-        
-       
-          | <a href="/blog/2013/08/17/objectivecleibie/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>类扩展</h1>
-
-<p>始终不明白类扩展是什么东西,今天查了下文档</p>
-
-<p>A class extension bears some similarity to a category, but it can only be added to a class for which you have the source code at compile time (the class is compiled at the same time as the class extension). The methods declared by a class extension are implemented in the @implementation block for the original class so you can’t, for example, declare a class extension on a framework class, such as a Cocoa or Cocoa Touch class like NSString.</p>
-
-<p>Because no name is given in the parentheses, class extensions are often referred to as anonymous categories.</p>
-
-<p>Unlike regular categories, a class extension can add its own properties and instance variables to a class.</p>
-
-<p>Because no name is given in the parentheses, class extensions are often referred to as anonymous categories.</p>
-
-<p>Unlike regular categories, a class extension can add its own properties and instance variables to a class.</p>
-
-<p>the compiler will automatically synthesize the relevant accessor methods, as well as an instance variable, inside the primary class implementation.</p>
-
-<p>If you add any methods in a class extension, these must be implemented in the primary implementation for the class.</p>
-
-<p>It’s also possible to use a class extension to add custom instance variables.</p>
-
-<p>按理说，类扩展中的的方法应该属于私有方法了，但是它真不是私有方法。。。</p>
-
-<p>(Btw, it&rsquo;s not really a private method, it&rsquo;s just hidden from the interface. Any outside object that knows the message signature can still call it. &ldquo;Real&rdquo; private methods don&rsquo;t exist in Objective-C.)</p>
-
-<p>就是说根本就没有私有方法！根本上就是一个在interface没有声明的隐藏起来的的消息（方法）。如果其他对象知道这个消息名称（方法名称），它就可以发送这个消息（调用这个方法），不管你隐藏的多深！！！</p>
-
-<p>如下面这段代码:</p>
-
-<pre><code>
-
-#import <Foundation/Foundation.h>
-#import "Asia.h"
-
-@interface Language : NSObject
-@end
-
-#import "Language.h"
-@interface Language ()
-@property(nonatomic,copy) NSString *name1;
-//- (NSString *)speakHello;
-
-@end
-@implementation Language
-
-- (NSString *)speakHello{
-return @"hello!!!";
-}
-- (void )speakHi{
-    NSLog(@"Hi!!!");
-}
-@end
-
-</pre>
-
-
-<p></code></p>
-
-<pre><code>
-
-#import <Foundation/Foundation.h>
-import "Language.h"
-
-
-@interface English : Language
-- (void)printName;
-@end
-
-#import "English.h"
-@interface English ()
-- (NSString *)speakHello;
-@end
-@implementation English
-- (void)printName{
-NSLog(@"%@",[self speakHello]);
-
-if ([self respondsToSelector:@selector(speakHi)]) {
-  [self performSelector:@selector(speakHi)];
-}
-;
-
-}
-
-@end
-
-</pre>
-
-
-<p></code>
-运行printName方法，输出：hello!!!</p>
-
-<p>Hi!!!
-看，它首先给自己也就是English对象发送speakHello消息，结果它没有，好吧，转发给父类对象，虽然有speakHello消息，但是是在interface没有声明的，但它的确有，它响应了这个消息！</p>
-
-<h1>类别</h1>
-
-<p>又查了下类别</p>
-
-<p>You use categories to define additional methods of an existing class—even one whose source code is unavailable to you—without subclassing. You typically use a category to add methods to an existing class, such as one defined in the Cocoa frameworks. The added methods are inherited by subclasses and are indistinguishable at runtime from the original methods of the class. You can also use categories of your own classes to:</p>
-
-<p>Distribute the implementation of your own classes into separate source files—for example, you could group the methods of a large class into several categories and put each category in a different file.</p>
-
-<p>Declare private methods.</p>
-
-<p>You add methods to a class by declaring them in an interface file under a category name and defining them in an implementation file under the same name. The category name indicates that the methods are an extension to a class declared elsewhere, not a new class</p>
-</div>
-  
-  
-
-</article>
-
-
-    <article class="post">
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/17/osxsshconfig/">Os X开启ssh</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-08-17T21:07:00+08:00" pubdate data-updated="true">Aug 17<span>th</span>, 2013</time>
-        
-       
-          | <a href="/blog/2013/08/17/osxsshconfig/#comments">Comments</a>
-         
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>首先了解launchd</h2>
-
-
-<p>launchd is a unified, open-source service management framework for starting, stopping and managing daemons, applications, processes, and scripts.
-Written and designed by Dave Zarzycki at Apple, it was introduced with Mac OS X Tiger and is licensed under the Apache License.</p>
-
-<h2>启动sshd</h2>
-
-
-<pre><code>launchctl load -w /System/Library/LaunchDaemons/ssh.plist
-</pre>
-
-
-<p></code></p>
-
-<h2>查看是否启动</h2>
-
-
-<pre><code>launchctl list | grep ssh</pre>
-
-
-<p></code></p>
-
-<h2>使用github的https提交项目时总是报403错误，所以改用ssh</h2>
-
-
-<p>详细步骤：<a title="github help" href="https://help.github.com/articles/generating-ssh-keys" target="_blank"><a href="https://help.github.com/articles/generating-ssh-keys">https://help.github.com/articles/generating-ssh-keys</a></a></p>
-
-<ol>
-    <li>cd ~/.ssh</li>
-    <li>备份已经存在的key</li>
-    <li>创建新的key：ssh-keygen -t rsa -C &#8220;your_email@youremail.com&#8221;</li>
-    <li>添加key到github。在github中Account Setting 中创建ssh keys，将.ssh文件夹下的id_rsa.pub文件中内容拷贝到github中。</li>
-    <li>测试是否成功：ssh -T git@github.com</li>
-</ol>
-
-
-
-</div>
-  
-  
-
-</article>
-
-
-    <article class="post">
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/17/playwhiledownload/">音视频边播放边下载技术调研及问题</a></h1>
+      <h1 class="entry-title">音视频边播放边下载技术调研及问题</h1>
     
     
       <p class="meta">
@@ -302,14 +87,14 @@ Written and designed by Dave Zarzycki at Apple, it was introduced with Mac OS X 
 <time datetime="2013-08-17T21:06:00+08:00" pubdate data-updated="true">Aug 17<span>th</span>, 2013</time>
         
        
-          | <a href="/blog/2013/08/17/playwhiledownload/#comments">Comments</a>
+          | <a href="#comments">Comments</a>
          
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h1 id="id-(2013-06-27)音视频边播放边下载技术调研及问题-介绍">介绍</h1>
+<div class="entry-content"><h1 id="id-(2013-06-27)音视频边播放边下载技术调研及问题-介绍">介绍</h1>
 
 
 <h2 id="id-(2013-06-27)音视频边播放边下载技术调研及问题-需求">需求</h2>
@@ -583,16 +368,118 @@ Written and designed by Dave Zarzycki at Apple, it was introduced with Mac OS X 
 
 <p>即m3u8只是指向很多ts文件的一个文件列表，当然不能播放。如果需要想要实现对HTTP LIVE STREAMING (hls)的边播放边下载，还需要解析这个索引文件，然后再分别下载，再组装成一个视频文件然后播放，当然，这就不是边播放边下载了。</p>
 </div>
-  
+
+
+  <footer>
+    <p class="meta">
+      
   
 
+<span class="byline author vcard">Posted by <span class="fn">nsdifficult@gmail.com</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-17T21:06:00+08:00" pubdate data-updated="true">Aug 17<span>th</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+<!--
+  
+  
+  
+-->
+<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+<a class="shareCount"></a>
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=3892926" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+</div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/08/17/osxsshconfig/" title="Next Post: os X开启ssh">os X开启ssh &raquo;</a>
+      
+    </p>
+  </footer>
 </article>
 
-<nav id="pagenavi">
+
+  <section>
+    <h1>Comments</h1>
+    <div id="comments" aria-live="polite"><!-- Duoshuo Comment END -->
+	<div class="ds-thread"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"nsdifficult"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
     
+      <li class="post">
+        <a href="/blog/2013/08/17/objectivecleibie/">Objective-C的类别，类扩展与私有方法</a>
+      </li>
     
-    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
-</nav>
+      <li class="post">
+        <a href="/blog/2013/08/17/osxsshconfig/">Os X开启ssh</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/17/playwhiledownload/">音视频边播放边下载技术调研及问题</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
     </div>
   </div>
   <footer role="contentinfo"><p>

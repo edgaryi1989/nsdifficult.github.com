@@ -4,7 +4,7 @@
   <title><![CDATA[NSDIFFICULT]]></title>
   <link href="http://www.nsdifficult.com/atom.xml" rel="self"/>
   <link href="http://www.nsdifficult.com/"/>
-  <updated>2013-08-17T20:02:56+08:00</updated>
+  <updated>2013-08-17T21:33:03+08:00</updated>
   <id>http://www.nsdifficult.com/</id>
   <author>
     <name><![CDATA[nsdifficult@gmail.com]]></name>
@@ -14,11 +14,441 @@
 
   
   <entry>
-    <title type="html"><![CDATA[2013-08-17-post-helloworld.markdown]]></title>
-    <link href="http://www.nsdifficult.com/blog/2013/08/17/2013-08-17-post-helloworld-dot-markdown/"/>
-    <updated>2013-08-17T11:59:00+08:00</updated>
-    <id>http://www.nsdifficult.com/blog/2013/08/17/2013-08-17-post-helloworld-dot-markdown</id>
-    <content type="html"><![CDATA[
+    <title type="html"><![CDATA[Objective-C的类别，类扩展与私有方法]]></title>
+    <link href="http://www.nsdifficult.com/blog/2013/08/17/objectivecleibie/"/>
+    <updated>2013-08-17T21:09:00+08:00</updated>
+    <id>http://www.nsdifficult.com/blog/2013/08/17/objectivecleibie</id>
+    <content type="html"><![CDATA[<h1>类扩展</h1>
+
+<p>始终不明白类扩展是什么东西,今天查了下文档</p>
+
+<p>A class extension bears some similarity to a category, but it can only be added to a class for which you have the source code at compile time (the class is compiled at the same time as the class extension). The methods declared by a class extension are implemented in the @implementation block for the original class so you can’t, for example, declare a class extension on a framework class, such as a Cocoa or Cocoa Touch class like NSString.</p>
+
+<p>Because no name is given in the parentheses, class extensions are often referred to as anonymous categories.</p>
+
+<p>Unlike regular categories, a class extension can add its own properties and instance variables to a class.</p>
+
+<p>Because no name is given in the parentheses, class extensions are often referred to as anonymous categories.</p>
+
+<p>Unlike regular categories, a class extension can add its own properties and instance variables to a class.</p>
+
+<p>the compiler will automatically synthesize the relevant accessor methods, as well as an instance variable, inside the primary class implementation.</p>
+
+<p>If you add any methods in a class extension, these must be implemented in the primary implementation for the class.</p>
+
+<p>It’s also possible to use a class extension to add custom instance variables.</p>
+
+<p>按理说，类扩展中的的方法应该属于私有方法了，但是它真不是私有方法。。。</p>
+
+<p>(Btw, it&rsquo;s not really a private method, it&rsquo;s just hidden from the interface. Any outside object that knows the message signature can still call it. &ldquo;Real&rdquo; private methods don&rsquo;t exist in Objective-C.)</p>
+
+<p>就是说根本就没有私有方法！根本上就是一个在interface没有声明的隐藏起来的的消息（方法）。如果其他对象知道这个消息名称（方法名称），它就可以发送这个消息（调用这个方法），不管你隐藏的多深！！！</p>
+
+<p>如下面这段代码:</p>
+
+<pre><code>
+
+#import <Foundation/Foundation.h>
+#import "Asia.h"
+
+@interface Language : NSObject
+@end
+
+#import "Language.h"
+@interface Language ()
+@property(nonatomic,copy) NSString *name1;
+//- (NSString *)speakHello;
+
+@end
+@implementation Language
+
+- (NSString *)speakHello{
+return @"hello!!!";
+}
+- (void )speakHi{
+    NSLog(@"Hi!!!");
+}
+@end
+
+</pre>
+
+
+<p></code></p>
+
+<pre><code>
+
+#import <Foundation/Foundation.h>
+import "Language.h"
+
+
+@interface English : Language
+- (void)printName;
+@end
+
+#import "English.h"
+@interface English ()
+- (NSString *)speakHello;
+@end
+@implementation English
+- (void)printName{
+NSLog(@"%@",[self speakHello]);
+
+if ([self respondsToSelector:@selector(speakHi)]) {
+  [self performSelector:@selector(speakHi)];
+}
+;
+
+}
+
+@end
+
+</pre>
+
+
+<p></code>
+运行printName方法，输出：hello!!!</p>
+
+<p>Hi!!!
+看，它首先给自己也就是English对象发送speakHello消息，结果它没有，好吧，转发给父类对象，虽然有speakHello消息，但是是在interface没有声明的，但它的确有，它响应了这个消息！</p>
+
+<h1>类别</h1>
+
+<p>又查了下类别</p>
+
+<p>You use categories to define additional methods of an existing class—even one whose source code is unavailable to you—without subclassing. You typically use a category to add methods to an existing class, such as one defined in the Cocoa frameworks. The added methods are inherited by subclasses and are indistinguishable at runtime from the original methods of the class. You can also use categories of your own classes to:</p>
+
+<p>Distribute the implementation of your own classes into separate source files—for example, you could group the methods of a large class into several categories and put each category in a different file.</p>
+
+<p>Declare private methods.</p>
+
+<p>You add methods to a class by declaring them in an interface file under a category name and defining them in an implementation file under the same name. The category name indicates that the methods are an extension to a class declared elsewhere, not a new class</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[os X开启ssh]]></title>
+    <link href="http://www.nsdifficult.com/blog/2013/08/17/osxsshconfig/"/>
+    <updated>2013-08-17T21:07:00+08:00</updated>
+    <id>http://www.nsdifficult.com/blog/2013/08/17/osxsshconfig</id>
+    <content type="html"><![CDATA[<h2>首先了解launchd</h2>
+
+
+<p>launchd is a unified, open-source service management framework for starting, stopping and managing daemons, applications, processes, and scripts.
+Written and designed by Dave Zarzycki at Apple, it was introduced with Mac OS X Tiger and is licensed under the Apache License.</p>
+
+<h2>启动sshd</h2>
+
+
+<pre><code>launchctl load -w /System/Library/LaunchDaemons/ssh.plist
+</pre>
+
+
+<p></code></p>
+
+<h2>查看是否启动</h2>
+
+
+<pre><code>launchctl list | grep ssh</pre>
+
+
+<p></code></p>
+
+<h2>使用github的https提交项目时总是报403错误，所以改用ssh</h2>
+
+
+<p>详细步骤：<a title="github help" href="https://help.github.com/articles/generating-ssh-keys" target="_blank"><a href="https://help.github.com/articles/generating-ssh-keys">https://help.github.com/articles/generating-ssh-keys</a></a></p>
+
+<ol>
+    <li>cd ~/.ssh</li>
+    <li>备份已经存在的key</li>
+    <li>创建新的key：ssh-keygen -t rsa -C &#8220;your_email@youremail.com&#8221;</li>
+    <li>添加key到github。在github中Account Setting 中创建ssh keys，将.ssh文件夹下的id_rsa.pub文件中内容拷贝到github中。</li>
+    <li>测试是否成功：ssh -T git@github.com</li>
+</ol>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[音视频边播放边下载技术调研及问题]]></title>
+    <link href="http://www.nsdifficult.com/blog/2013/08/17/playwhiledownload/"/>
+    <updated>2013-08-17T21:06:00+08:00</updated>
+    <id>http://www.nsdifficult.com/blog/2013/08/17/playwhiledownload</id>
+    <content type="html"><![CDATA[<h1 id="id-(2013-06-27)音视频边播放边下载技术调研及问题-介绍">介绍</h1>
+
+
+<h2 id="id-(2013-06-27)音视频边播放边下载技术调研及问题-需求">需求</h2>
+
+
+<p>实现在音视频播放的时候即进行缓冲，即边播放边下载。</p>
+
+<h2 id="id-(2013-06-27)音视频边播放边下载技术调研及问题-技术介绍">技术介绍</h2>
+
+
+<p>思路来自<a href="http://www.cnblogs.com/zhouguixin/p/3139522.html" rel="nofollow"><a href="http://www.cnblogs.com/zhouguixin/p/3139522.html">http://www.cnblogs.com/zhouguixin/p/3139522.html</a></a>。要点是在先开一个下载的线程下载视频文件，然后在本地建一个server，然后拼接一个url给播放器。</p>
+
+<h1 id="id-(2013-06-27)音视频边播放边下载技术调研及问题-代码实现中遇到的问题">代码实现中遇到的问题</h1>
+
+
+<h2 id="id-(2013-06-27)音视频边播放边下载技术调研及问题-现象">现象</h2>
+
+
+<p>点击播放，MPMovicePlayerController报错，错误为：</p>
+
+<div>
+<div><strong>错误日志</strong></div>
+<div>
+<div>
+<div id="highlighter_886016">
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div title="Hint: double-click to select code">
+<div><code>2013</code><code>-</code><code>06</code><code>-</code><code>27</code> <code>18</code><code>:</code><code>49</code><code>:</code><code>28.727</code> <code>TibetVoice[</code><code>7748</code><code>:c07] {</code></div>
+<div><code>    </code><code>MPMoviePlayerPlaybackDidFinishReasonUserInfoKey = </code><code>1</code><code>;</code></div>
+<div><code>    </code><code>error = </code><code>"Error Domain=MediaPlayerErrorDomain Code=-11828 \"Cannot Open\" UserInfo=0x9246dc0 {NSLocalizedDescription=Cannot Open}"</code><code>;</code></div>
+<div><code>}</code></div>
+</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+<h2 id="id-(2013-06-27)音视频边播放边下载技术调研及问题-分析1">分析1</h2>
+
+
+<p>使用的断点续传的开源库是<a href="https://github.com/steipete/AFDownloadRequestOperation" rel="nofollow">AFDownloadRequestOperation</a>，它将缓冲文件保存的文件名没有后缀，后来想到缓冲文件需要和原始文件一致，更改缓冲文件命名方式为：</p>
+
+<div>
+<div><strong>更改命名规则</strong></div>
+<div>
+<div>
+<div id="highlighter_139116">
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div title="Hint: double-click to select code">
+<div><code>NSString *md5URLString = [[self.targetPath lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];</code></div>
+<div><code>        </code><code>//NSString *md5URLString = [NSString stringWithFormat:@"%@",[[self class] md5StringForString:self.targetPath]];</code></div>
+<div><code>        </code><code>tempPath = [[[self </code><code>class</code><code>] cacheFolder] stringByAppendingPathComponent:md5URLString]; </code></div>
+</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+<p>更改后发现视频还是不能报错，错误为：</p>
+
+<div>
+<div><strong>错误日志</strong></div>
+<div>
+<div>
+<div id="highlighter_134531">
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div title="Hint: double-click to select code">
+<div><code>2013</code><code>-</code><code>06</code><code>-</code><code>27</code> <code>18</code><code>:</code><code>57</code><code>:</code><code>08.870</code> <code>TibetVoice[</code><code>7808</code><code>:c07] {</code></div>
+<div><code>    </code><code>MPMoviePlayerPlaybackDidFinishReasonUserInfoKey = </code><code>1</code><code>;</code></div>
+<div><code>    </code><code>error = </code><code>"Error Domain=MediaPlayerErrorDomain Code=-11800 \"The operation could not be completed\" UserInfo=0x914be70 {NSLocalizedDescription=The operation could not be completed}"</code><code>;</code></div>
+<div><code>}</code></div>
+</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+<h2 id="id-(2013-06-27)音视频边播放边下载技术调研及问题-分析2">分析2</h2>
+
+
+<p>边播放边下载的实现方式来源于<a href="http://www.cnblogs.com/zhouguixin/p/3139522.html" rel="nofollow"><a href="http://www.cnblogs.com/zhouguixin/p/3139522.html">http://www.cnblogs.com/zhouguixin/p/3139522.html</a></a>，文章中有一段：</p>
+
+<div>
+<div><strong>解释</strong></div>
+<div>
+<div>
+<div id="highlighter_34034">
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div title="Hint: double-click to select code">
+<div><code>是有一点需要自己实现：当httpserver接受到MPMoviePlayerController的请求时，server要先返回一个请求包含了整个</code></div>
+<div><code>视频文件的大小。然后MPMoviePlayerController才会不断请求本地的服务器取数据。我的实现是这样的。当要比方某个视频文件的时候，</code></div>
+<div><code>先开启一个request去下载，当收到文件总大小的时候，存到本地的一个dictionary中，request继续下载，然后打开</code></div>
+<div><code>localserver，拼一个本地url给player，让他自动播放。当localserver收到请求时，根据要请求的文件去本地读文件的实际大</code></div>
+<div><code>小，返回给player，然后player就可以播放了。</code></div>
+</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+<p>这段开始看的不明就里，后来在google上搜到<a href="https://groups.google.com/forum/#%21topic/cocoahttpserver/-da-UI44w0Y" rel="nofollow">这篇文章</a>，里面有一段话：</p>
+
+<div>
+<div><strong>解释</strong></div>
+<div>
+<div>
+<div id="highlighter_885035">
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div title="Hint: double-click to select code">
+<div><code>Hello Robbiehanson!</code></div>
+<div></div>
+<div><code>Thanks </code><code>for</code> <code>your works!</code></div>
+<div></div>
+<div><code>I'm implement your project to play video streaming. In method "-</code></div>
+<div></div>
+<div><code>(NSObject&lt;HTTPResponse&gt; *)httpResponseForMethod:(NSString *)method URI:</code></div>
+<div></div>
+<div><code>(NSString *)path" i'm using HTTPAsyncFileResponse and set fileLength</code></div>
+<div></div>
+<div><code>of file on server. But video is playing with no sound. So what was the</code></div>
+<div></div>
+<div><code>reason?</code></div>
+<div></div>
+<div><code>Thanks!.</code></div>
+</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+<p>明白了要把<a href="https://github.com/robbiehanson/CocoaHTTPServer" rel="nofollow">cocoahttpserver</a>中的设置读取文件大小的代码，让本地服务器以视频原始文件大小去读：</p>
+
+<div>
+<div><strong>修改读取文件的大小</strong></div>
+<div>
+<div>
+<div id="highlighter_39416">
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div title="Hint: double-click to select code">
+<div><code>//fileLength = (UInt64)[[fileAttributes objectForKey:NSFileSize] unsignedLongLongValue];</code></div>
+<div><code>  </code><code>fileLength = [FileTools fileSizeWithUrl:filePath];</code></div>
+</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+<p>再运行，发现能播放了</p>
+
+<h1 id="id-(2013-06-27)音视频边播放边下载技术调研及问题-播放mp4流和hls流问题">播放mp4流和hls流问题</h1>
+
+
+<h2 id="id-(2013-06-27)音视频边播放边下载技术调研及问题-mp4">mp4</h2>
+
+
+<p>播放mp4正常</p>
+
+<h2 id="id-(2013-06-27)音视频边播放边下载技术调研及问题-m3u8">m3u8</h2>
+
+
+<p>点击播放，MPMovicePlayerController报错，错误为：</p>
+
+<div>
+<div><strong>错误日志</strong></div>
+<div>
+<div>
+<div id="highlighter_46561">
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div title="Hint: double-click to select code">
+<div><code>2013</code><code>-</code><code>06</code><code>-</code><code>27</code> <code>19</code><code>:</code><code>15</code><code>:</code><code>18.372</code> <code>TibetVoice[</code><code>7885</code><code>:c07] Error: Error Domain=NSCocoaErrorDomain Code=</code><code>516</code> <code>"The operation couldn’t be completed.</code></div>
+</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+<h3 id="id-(2013-06-27)音视频边播放边下载技术调研及问题-分析">分析</h3>
+
+
+<p>到虚拟机的应用目录下看到本地有一个m3u8文件，打开发现是：</p>
+
+<div>
+<div><strong>m3u8</strong></div>
+<div>
+<div>
+<div id="highlighter_810498">
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td>
+<div title="Hint: double-click to select code">
+<div><code>#EXTM3U</code></div>
+<div><code>#EXT-X-TARGETDURATION:</code><code>10</code></div>
+<div><code>#EXT-X-MEDIA-SEQUENCE:</code><code>0</code></div>
+<div><code>#EXTINF:</code><code>10</code><code>, no desc</code></div>
+<div><code>fileSequence0.ts</code></div>
+<div><code>#EXTINF:</code><code>10</code><code>, no desc</code></div>
+<div><code>fileSequence1.ts</code></div>
+<div><code>#EXTINF:</code><code>10</code><code>, no desc</code></div>
+<div><code>fileSequence2.ts</code></div>
+<div><code>#EXTINF:</code><code>10</code><code>, no desc</code></div>
+<div><code>fileSequence3.ts</code></div>
+<div><code>#EXTINF:</code><code>10</code><code>, no desc</code></div>
+<div><code>fileSequence4.ts</code></div>
+<div><code>#EXTINF:</code><code>10</code><code>, no desc</code></div>
+<div><code>fileSequence5.ts</code></div>
+<div><code>#EXTINF:</code><code>10</code><code>, no desc</code></div>
+<div><code>fileSequence6.ts</code></div>
+<div><code>#EXTINF:</code><code>10</code><code>, no desc</code></div>
+<div><code>fileSequence7.ts</code></div>
+<div><code>#EXTINF:<code></code></code><code>10</code><code>, no desc</code></div>
+<div><code>fileSequence8.ts</code></div>
+</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+
+<p>即m3u8只是指向很多ts文件的一个文件列表，当然不能播放。如果需要想要实现对HTTP LIVE STREAMING (hls)的边播放边下载，还需要解析这个索引文件，然后再分别下载，再组装成一个视频文件然后播放，当然，这就不是边播放边下载了。</p>
 ]]></content>
   </entry>
   

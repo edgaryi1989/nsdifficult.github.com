@@ -3,9 +3,9 @@
 # ----------------------- #
 
 url: http://nsdifficult.github.io
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+title: NSDIFFICULT 
+subtitle: 没有人能阻挡你对自由的向往。 
+author: 易荣义
 simple_search: http://google.com/search
 description:
 
@@ -68,9 +68,6 @@ github_repo_count: 0
 github_show_profile_link: true
 github_skip_forks: true
 
-# Twitter
-twitter_user:
-twitter_tweet_button: true
 
 # Google +1
 google_plus_one: false

@@ -4,7 +4,7 @@
   <title><![CDATA[NSDIFFICULT]]></title>
   <link href="http://www.nsdifficult.com/atom.xml" rel="self"/>
   <link href="http://www.nsdifficult.com/"/>
-  <updated>2013-08-17T21:35:36+08:00</updated>
+  <updated>2013-08-18T09:12:38+08:00</updated>
   <id>http://www.nsdifficult.com/</id>
   <author>
     <name><![CDATA[nsdifficult@gmail.com]]></name>
@@ -106,9 +106,15 @@ if ([self respondsToSelector:@selector(speakHi)]) {
 
 
 <p></code>
-运行printName方法，输出：hello!!!</p>
+运行printName方法，输出：</p>
 
-<p>Hi!!!
+<pre><code>
+hello!!!
+Hi!!!
+</pre>
+
+
+<p></code>
 看，它首先给自己也就是English对象发送speakHello消息，结果它没有，好吧，转发给父类对象，虽然有speakHello消息，但是是在interface没有声明的，但它的确有，它响应了这个消息！</p>
 
 <h1>类别</h1>

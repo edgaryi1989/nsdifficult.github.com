@@ -111,7 +111,7 @@
 
 <p>始终不明白类扩展是什么东西,今天查了下文档</p>
 
-<p>A class extension bears some similarity to a category, but it can only be added to a class for which you have the source code at compile time (the class is compiled at the same time as the class extension). The methods declared by a class extension are implemented in the @implementation block for the original class so you can’t, for example, declare a class extension on a framework class, such as a Cocoa or Cocoa Touch class like NSString.</p>
+<blockquote><p>A class extension bears some similarity to a category, but it can only be added to a class for which you have the source code at compile time (the class is compiled at the same time as the class extension). The methods declared by a class extension are implemented in the @implementation block for the original class so you can’t, for example, declare a class extension on a framework class, such as a Cocoa or Cocoa Touch class like NSString.<br></p>
 
 <p>Because no name is given in the parentheses, class extensions are often referred to as anonymous categories.</p>
 
@@ -125,11 +125,11 @@
 
 <p>If you add any methods in a class extension, these must be implemented in the primary implementation for the class.</p>
 
-<p>It’s also possible to use a class extension to add custom instance variables.</p>
+<p>It’s also possible to use a class extension to add custom instance variables.</p></blockquote>
 
 <p>按理说，类扩展中的的方法应该属于私有方法了，但是它真不是私有方法。。。</p>
 
-<p>(Btw, it&rsquo;s not really a private method, it&rsquo;s just hidden from the interface. Any outside object that knows the message signature can still call it. &ldquo;Real&rdquo; private methods don&rsquo;t exist in Objective-C.)</p>
+<blockquote><p>(Btw, it&rsquo;s not really a private method, it&rsquo;s just hidden from the interface. Any outside object that knows the message signature can still call it. &ldquo;Real&rdquo; private methods don&rsquo;t exist in Objective-C.)</p></blockquote>
 
 <p>就是说根本就没有私有方法！根本上就是一个在interface没有声明的隐藏起来的的消息（方法）。如果其他对象知道这个消息名称（方法名称），它就可以发送这个消息（调用这个方法），不管你隐藏的多深！！！</p>
 
@@ -210,13 +210,13 @@ Hi!!!
 
 <p>又查了下类别</p>
 
-<p>You use categories to define additional methods of an existing class—even one whose source code is unavailable to you—without subclassing. You typically use a category to add methods to an existing class, such as one defined in the Cocoa frameworks. The added methods are inherited by subclasses and are indistinguishable at runtime from the original methods of the class. You can also use categories of your own classes to:</p>
+<blockquote><p>You use categories to define additional methods of an existing class—even one whose source code is unavailable to you—without subclassing. You typically use a category to add methods to an existing class, such as one defined in the Cocoa frameworks. The added methods are inherited by subclasses and are indistinguishable at runtime from the original methods of the class. You can also use categories of your own classes to:</p>
 
 <p>Distribute the implementation of your own classes into separate source files—for example, you could group the methods of a large class into several categories and put each category in a different file.</p>
 
 <p>Declare private methods.</p>
 
-<p>You add methods to a class by declaring them in an interface file under a category name and defining them in an implementation file under the same name. The category name indicates that the methods are an extension to a class declared elsewhere, not a new class</p>
+<p>You add methods to a class by declaring them in an interface file under a category name and defining them in an implementation file under the same name. The category name indicates that the methods are an extension to a class declared elsewhere, not a new class</p></blockquote>
 </div>
 
 
@@ -349,10 +349,10 @@ var duoshuoQuery = {short_name:"nsdifficult"};
 
 
 
-<script type="text/javascript">
+<div style="display:none" <script type="text/javascript">
 var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fa42c7d5258edc95a50f96db3350a58b2' type='text/javascript'%3E%3C/script%3E"));
-</script>
+</script></div>
 
 </body>
 </html>

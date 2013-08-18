@@ -1,20 +1,24 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://www.nsdifficult.com/blog/2013/08/17/playwhiledownload/</loc>
+        <loc>http://www.nsdifficult.com/blog/20130817/playwhiledownload/</loc>
         <lastmod>2013-08-17T21:13:18+08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.nsdifficult.com/blog/2013/08/17/osxsshconfig/</loc>
+        <loc>http://www.nsdifficult.com/blog/20130817/osxsshconfig/</loc>
         <lastmod>2013-08-17T21:08:15+08:00</lastmod>
     </url>
     <url>
-        <loc>http://www.nsdifficult.com/blog/2013/08/17/objectivecleibie/</loc>
+        <loc>http://www.nsdifficult.com/blog/20130817/objectivecleibie/</loc>
         <lastmod>2013-08-18T09:20:37+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.nsdifficult.com/404.html</loc>
         <lastmod>2013-08-17T17:22:41+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://www.nsdifficult.com/about/</loc>
+        <lastmod>2013-08-18T12:56:22+08:00</lastmod>
     </url>
     <url>
         <loc>http://www.nsdifficult.com/blog/archives/</loc>

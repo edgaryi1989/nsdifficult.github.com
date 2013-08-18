@@ -4,7 +4,7 @@
   <title><![CDATA[NSDIFFICULT]]></title>
   <link href="http://www.nsdifficult.com/atom.xml" rel="self"/>
   <link href="http://www.nsdifficult.com/"/>
-  <updated>2013-08-18T11:43:04+08:00</updated>
+  <updated>2013-08-18T12:56:32+08:00</updated>
   <id>http://www.nsdifficult.com/</id>
   <author>
     <name><![CDATA[nsdifficult@gmail.com]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Objective-C的类别，类扩展与私有方法]]></title>
-    <link href="http://www.nsdifficult.com/blog/2013/08/17/objectivecleibie/"/>
+    <link href="http://www.nsdifficult.com/blog/20130817/objectivecleibie/"/>
     <updated>2013-08-17T21:09:00+08:00</updated>
-    <id>http://www.nsdifficult.com/blog/2013/08/17/objectivecleibie</id>
+    <id>http://www.nsdifficult.com/blog/20130817/objectivecleibie</id>
     <content type="html"><![CDATA[<h2>类扩展</h2>
 
 <p>始终不明白类扩展是什么东西,今天查了下文档</p>
@@ -133,9 +133,9 @@ Hi!!!
   
   <entry>
     <title type="html"><![CDATA[os X开启ssh]]></title>
-    <link href="http://www.nsdifficult.com/blog/2013/08/17/osxsshconfig/"/>
+    <link href="http://www.nsdifficult.com/blog/20130817/osxsshconfig/"/>
     <updated>2013-08-17T21:07:00+08:00</updated>
-    <id>http://www.nsdifficult.com/blog/2013/08/17/osxsshconfig</id>
+    <id>http://www.nsdifficult.com/blog/20130817/osxsshconfig</id>
     <content type="html"><![CDATA[<h2>首先了解launchd</h2>
 
 
@@ -179,9 +179,9 @@ Written and designed by Dave Zarzycki at Apple, it was introduced with Mac OS X 
   
   <entry>
     <title type="html"><![CDATA[音视频边播放边下载技术调研及问题]]></title>
-    <link href="http://www.nsdifficult.com/blog/2013/08/17/playwhiledownload/"/>
+    <link href="http://www.nsdifficult.com/blog/20130817/playwhiledownload/"/>
     <updated>2013-08-17T21:06:00+08:00</updated>
-    <id>http://www.nsdifficult.com/blog/2013/08/17/playwhiledownload</id>
+    <id>http://www.nsdifficult.com/blog/20130817/playwhiledownload</id>
     <content type="html"><![CDATA[<h1 id="id-(2013-06-27)音视频边播放边下载技术调研及问题-介绍">介绍</h1>
 
 
